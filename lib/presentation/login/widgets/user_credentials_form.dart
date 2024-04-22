@@ -23,6 +23,7 @@ class UserCredentialsForm extends StatelessWidget {
             hintText: 'Email/Phone',
             textEditingController: emailController,
             validator: (value) => emailValidation(value!),
+            keyboardType: TextInputType.emailAddress,
           ),
           gapH30,
           TextBox(
@@ -30,6 +31,7 @@ class UserCredentialsForm extends StatelessWidget {
             obscureText: true,
             textEditingController: passwordController,
             validator: (value) => passwordValidation(value!),
+            keyboardType: TextInputType.visiblePassword,
           ),
           gapH30,
           InkWell(
