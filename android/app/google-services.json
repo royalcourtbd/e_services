@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "354496997593",
+    "project_id": "eservuce",
+    "storage_bucket": "eservuce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354496997593:android:b7a3ceee335232ca0b76c8",
+        "android_client_info": {
+          "package_name": "com.example.e_services"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA8xkzOABtLpq5qslopSb1J4hVxc8A2ZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
