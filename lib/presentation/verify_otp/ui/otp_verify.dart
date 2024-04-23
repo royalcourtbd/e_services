@@ -5,8 +5,7 @@ import 'package:e_services/core/static/ui_const.dart';
 import 'package:e_services/presentation/common/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:otp_text_field/otp_text_field.dart';
-import 'package:otp_text_field/style.dart';
+import 'package:otp_text_field/otp_field.dart';
 
 class OtpVerify extends StatelessWidget {
   OtpVerify({super.key, required this.email});

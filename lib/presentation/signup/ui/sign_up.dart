@@ -42,28 +42,29 @@ class SignUpPage extends StatelessWidget {
             ),
             gapH50,
             Form(
-                key: signUpFormKey,
-                child: Column(
-                  children: [
-                    TextBox(
-                      hintText: 'Phone Number',
-                      textEditingController: _numberController,
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
-                    gapH30,
-                    TextBox(
-                      hintText: 'Password',
-                      textEditingController: _passwordController,
-                      obscureText: true,
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
-                    gapH30,
-                    SubmitButton(
-                      buttonTitle: 'Sign Up',
-                      onPressed: () {},
-                    ),
-                  ],
-                ))
+              key: signUpFormKey,
+              child: Column(
+                children: [
+                  TextBox(
+                    hintText: 'Phone Number',
+                    textEditingController: _numberController,
+                    keyboardType: TextInputType.visiblePassword,
+                  ),
+                  gapH30,
+                  TextBox(
+                    hintText: 'Password',
+                    textEditingController: _passwordController,
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
+                  ),
+                  gapH30,
+                  SubmitButton(
+                    buttonTitle: 'Sign Up',
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
