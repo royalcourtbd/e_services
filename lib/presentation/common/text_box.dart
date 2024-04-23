@@ -10,6 +10,7 @@ class TextBox extends StatelessWidget {
     required this.textEditingController,
     this.validator,
     this.onSaved,
+    TextInputType keyboardType = TextInputType.text,
   });
   final String hintText;
   final bool obscureText;
