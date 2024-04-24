@@ -1,5 +1,5 @@
 import 'package:e_services/presentation/e_services.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -8,6 +8,6 @@ void main() async {
 }
 
 initial() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
 }
