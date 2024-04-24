@@ -1,3 +1,4 @@
+import 'package:e_services/presentation/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/config/service_screen.dart';
@@ -8,11 +9,9 @@ import 'package:get/get.dart';
 
 class UserCredentialsForm extends StatelessWidget {
   UserCredentialsForm({super.key});
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final authC = Get.find<AuthController>();
   final GlobalKey<FormState> loginFormKey =
       GlobalKey<FormState>(debugLabel: '_loginFormKey');
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -21,14 +20,14 @@ class UserCredentialsForm extends StatelessWidget {
         children: [
           TextBox(
             hintText: 'Email/Phone',
-            textEditingController: emailController,
+            textEditingController: authC.emailController,
             validator: (value) => emailValidation(value!),
           ),
           gapH30,
           TextBox(
             hintText: 'Password',
             obscureText: true,
-            textEditingController: passwordController,
+            textEditingController: authC.passwordController,
             validator: (value) => passwordValidation(value!),
           ),
           gapH30,
@@ -74,11 +73,15 @@ class UserCredentialsForm extends StatelessWidget {
     return null;
   }
 
-  void logInButton() {
+  void logInButton() async {
+    final authC = Get.find<AuthController>();
+
     final isValid = loginFormKey.currentState!.validate();
     if (!isValid) {
       return;
     }
+    await authC.signInwithemailpass(
+        authC.emailController.text, authC.passwordController.text);
     loginFormKey.currentState!.save();
   }
 }

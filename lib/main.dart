@@ -9,5 +9,5 @@ void main() async {
 
 initial() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: FirebaseOptions(apiKey:"AIzaSyDA8xkzOABtLpq5qslopSb1J4hVxc8A2ZA" , appId: "1:354496997593:android:b7a3ceee335232ca0b76c8", messagingSenderId: "354496997593", projectId: "eservuce"));
 }
