@@ -46,6 +46,7 @@ dependencies:
   firebase_core_web: ^2.11.5
   firebase_auth_web: ^5.9.8
   cloud_firestore: ^4.17.2
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +91,9 @@ flutter:
         - asset: assets/fonts/roboto/Roboto-Bold.ttf
         - asset: assets/fonts/roboto/Roboto-Medium.ttf
         - asset: assets/fonts/roboto/Roboto-Regular.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Regular.ttf
 
   #
   # For details regarding fonts from package dependencies,
