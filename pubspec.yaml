@@ -45,6 +45,7 @@ dependencies:
   firebase_core_web: ^2.11.5
   firebase_auth_web: ^5.9.8
   flutter_rating_bar: ^4.0.1
+  stylish_bottom_bar: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -2,18 +2,23 @@ import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
+import 'package:e_services/presentation/dashboard/model/dashboard_item_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ServiceAppColor.scaffoldBgCOlor,
       body: Stack(
         children: [
           Column(
@@ -21,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Container(
                 height: 40.percentWidth,
                 decoration: BoxDecoration(
-                  color: Color(0xff8F2CF2),
+                  color: const Color(0xff8F2CF2),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(sixteenPx),
                     bottomRight: Radius.circular(sixteenPx),
@@ -30,70 +35,74 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: CircleAvatar(
+                    Padding(
+                      padding: EdgeInsets.all(twentyPx),
+                      child: const CircleAvatar(
                         backgroundImage: AssetImage(SvgPath.imgProfilePic2),
+                        radius: 15,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: SvgPicture.asset(
-                        SvgPath.icNotification,
-                        height: 24.0,
-                        width: 24.0,
+                      padding: const EdgeInsets.all(16.0),
+                      child: CircleAvatar(
+                        radius: 15,
+                        backgroundColor: Colors.white.withOpacity(0.3),
+                        child: SvgPicture.asset(
+                          SvgPath.icNotification,
+                          width: 18,
+                          colorFilter: const ColorFilter.mode(
+                            Colors.white,
+                            BlendMode.srcATop,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              gapH50,
-              gapH50,
+              SizedBox(height: 45.percentWidth),
               Expanded(
-                child: Container(
-                  color: ServiceAppColor.scaffoldBgCOlor,
+                child: Padding(
+                  padding: padding20,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Today Booking',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Today Booking',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'See All',
+                            style: TextStyle(
+                              fontSize: twelvePx,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(
+                                0xff6B6868,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                      gapH15,
                       Expanded(
-                        child: ListView(
-                          padding: EdgeInsets.zero,
-                          children: [
-                            _buildBookingCard(
-                              imagePath: SvgPath.img1,
-                              label: 'Room cleaning',
-                              price: '\€119',
-                            ),
-                            _buildBookingCard(
-                              imagePath: SvgPath.img1,
-                              label: 'Office cleaning',
-                              price: '\€120',
-                            ),
-                            _buildBookingCard(
-                              imagePath: SvgPath.img1,
-                              label: 'Room cleaning',
-                              price: '\€80',
-                            ),
-                            _buildBookingCard(
-                              imagePath: SvgPath.img1,
-                              label: 'Room cleaning',
-                              price: '\€99',
-                            ),
-                            _buildBookingCard(
-                              imagePath: SvgPath.img1,
-                              label: 'Room cleaning',
-                              price: '',
-                            ),
-                          ],
-                        ),
-                      ),
+                        child: ListView.builder(
+                            itemCount: 10,
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            itemBuilder: (context, index) {
+                              return _buildBookingCard(
+                                imagePath: SvgPath.imgProfilePic2,
+                                label: 'Service Name',
+                                price: '€119',
+                              );
+                            }),
+                      )
                     ],
                   ),
                 ),
@@ -101,10 +110,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           Positioned(
-            top: 120,
-            left: 16,
-            right: 16,
+            top: 30.percentWidth,
+            left: twentyPx,
+            right: twentyPx,
             child: Container(
+              padding: padding6,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16.0),
@@ -113,38 +123,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildStatCard(
-                    color: Colors.blue,
-                    iconData: Icons.calendar_today,
-                    value: '12',
-                    label: 'Today Booking',
-                  ),
-                  _buildStatCard(
-                    color: Colors.teal,
-                    iconData: Icons.check_circle,
-                    value: '130',
-                    label: 'Completed',
-                  ),
-                  _buildStatCard(
-                    color: Colors.purple,
-                    iconData: Icons.arrow_upward,
-                    value: '3',
-                    label: 'Upcoming',
-                  ),
-                  _buildStatCard(
-                    color: Colors.amber,
-                    iconData: Icons.cancel,
-                    value: '7',
-                    label: 'Canceled',
-                  ),
-                ],
+              child: GridView.builder(
+                itemCount: dashboardItemModel.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 3,
+                  mainAxisSpacing: 3,
+                  childAspectRatio: 1 / .5,
+                ),
+                itemBuilder: (context, index) {
+                  return _buildStatCard(
+                    color: dashboardItemModel[index].color,
+                    iconPath: dashboardItemModel[index]
+                        .iconPath, // Error: The argument type 'String' can't be assigned to the parameter type 'IconData',
+                    value: dashboardItemModel[index].value,
+                    label: dashboardItemModel[index].label,
+                  );
+                },
               ),
             ),
           ),
@@ -155,30 +157,54 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildStatCard({
     required Color color,
-    required IconData iconData,
+    required String iconPath,
     required String value,
     required String label,
   }) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          CircleAvatar(
-            backgroundColor: color,
-            child: Icon(
-              iconData,
-              color: Colors.white,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: radius10,
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: color,
+              radius: 15,
+              child: SvgPicture.asset(
+                iconPath,
+                colorFilter:
+                    const ColorFilter.mode(Colors.white, BlendMode.srcATop),
+              ),
             ),
-          ),
-          SizedBox(height: 4.0),
-          Text(
-            value,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+            gapW10,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  value,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: twentyPx,
+                        fontWeight: FontWeight.w500,
+                        color: ServiceAppColor.textColor,
+                      ),
+                ),
+                Text(
+                  label,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: twelvePx,
+                        fontWeight: FontWeight.w400,
+                        color: ServiceAppColor.hintTextColor,
+                      ),
+                ),
+              ],
             ),
-          ),
-          Text(label),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -188,29 +214,101 @@ class _DashboardScreenState extends State<DashboardScreen> {
     required String label,
     required String price,
   }) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: AssetImage(imagePath),
-      ),
-      title: Text(label),
-      subtitle: Text(price),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
         children: [
-          TextButton(
-            onPressed: () {
-              // Handle view details
-            },
-            child: Text('View details'),
+          CircleAvatar(
+            backgroundImage: AssetImage(imagePath),
           ),
-          TextButton(
-            onPressed: () {
-              // Handle cancel
-            },
-            child: Text('Cancel'),
+          gapW10,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: fourteenPx,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                price,
+                style: TextStyle(
+                  fontSize: twelvePx,
+                  fontWeight: FontWeight.w400,
+                  color: const Color(0xff6B6868),
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: ServiceAppColor.completeBoxColor.withOpacity(0.1),
+                  borderRadius: radius10,
+                ),
+                child: Text(
+                  'View Details',
+                  style: TextStyle(
+                    fontSize: twelvePx,
+                    fontWeight: FontWeight.w400,
+                    color: ServiceAppColor.completeBoxColor,
+                  ),
+                ),
+              ),
+              gapW5,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: ServiceAppColor.cancelBoxColor.withOpacity(0.1),
+                  borderRadius: radius10,
+                ),
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    fontSize: twelvePx,
+                    fontWeight: FontWeight.w400,
+                    color: ServiceAppColor.cancelBoxColor,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 }
+
+List<DashBoardItemModel> dashboardItemModel = [
+  DashBoardItemModel(
+    color: const Color(0xff2C67F2),
+    value: '12',
+    label: 'Today Booking',
+    iconPath: SvgPath.icBag,
+  ),
+  DashBoardItemModel(
+    color: const Color(0xff62CFF4),
+    value: '130',
+    label: 'Completed',
+    iconPath: SvgPath.icComplete,
+  ),
+  DashBoardItemModel(
+    color: const Color(0xff8F2CF2),
+    value: '3',
+    label: 'Upcoming',
+    iconPath: SvgPath.icCallMisedOut,
+  ),
+  DashBoardItemModel(
+    color: const Color(0xffF8BD00),
+    value: '7',
+    label: 'Canceled',
+    iconPath: SvgPath.icCancelOutline,
+  ),
+];

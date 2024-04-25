@@ -12,10 +12,24 @@ class SvgPath {
   static const String icCross = "assets/images/svg/ic_cross.svg";
   static const String icLogout = "assets/images/svg/ic_logout.svg";
   static const String icQuestion = "assets/images/svg/ic_question.svg";
+  static const String icUserProfile = "assets/images/svg/iconamoon_profile.svg";
+  static const String icLogout2 = "assets/images/svg/logout.svg";
+  static const String icService = "assets/images/svg/service.svg";
+  static const String icTerm = "assets/images/svg/term.svg";
   static const String icTerms = "assets/images/svg/ic_terms.svg";
   static const String icNotification = "assets/images/svg/ic_notification.svg";
   static const String icSearch = "assets/images/svg/icsearch-outline.svg";
   static const String icRedClose = "assets/images/svg/ic_red_close.svg";
+  static const String icBag = "assets/images/svg/ic_bag.svg";
+  static const String icMessage = "assets/images/svg/ic_message.svg";
+  static const String icDocument = "assets/images/svg/ic_document.svg";
+  static const String icProfile = "assets/images/svg/ic_profile.svg";
+  static const String icHome = "assets/images/svg/ic_home.svg";
+  static const String icCallMisedOut =
+      "assets/images/svg/ic_call_missed_outgoing.svg";
+  static const String icCancelOutline =
+      "assets/images/svg/ic_cancel_outline.svg";
+  static const String icComplete = "assets/images/svg/ic_complete.svg";
   static const String img1 = "assets/images/png/img_1.jpg";
   static const String img2 = "assets/images/png/img_2.jpg";
   static const String img3 = "assets/images/png/img_3.jpg";

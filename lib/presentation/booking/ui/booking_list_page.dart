@@ -4,6 +4,7 @@ import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
 import 'package:e_services/presentation/my_booking/model/my_booking_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BookingListPage extends StatelessWidget {
   const BookingListPage({super.key});
@@ -13,8 +14,12 @@ class BookingListPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: ServiceAppColor.scaffoldBgCOlor,
       appBar: AppBar(
-        title: const Text('Complete Booking'),
+        title: const Text('Manage Booking'),
         backgroundColor: ServiceAppColor.scaffoldBgCOlor,
+        actions: [
+          SvgPicture.asset(SvgPath.icNotification),
+          gapW20,
+        ],
       ),
       body: Column(
         children: [
@@ -160,12 +165,9 @@ class BookingListPage extends StatelessWidget {
                                       horizontal: 10, vertical: 5),
                                   decoration: BoxDecoration(
                                     borderRadius: radius8,
-                                    color:
-                                        _myBookingList[index].status == 'Cancel'
-                                            ? const Color(0xffF54343)
-                                                .withOpacity(0.1)
-                                            : const Color(0xff62CFF4)
-                                                .withOpacity(0.1),
+                                    color: _myBookingList[index]
+                                        .color
+                                        .withOpacity(0.1),
                                   ),
                                   child: Text(
                                     _myBookingList[index].status,
@@ -175,10 +177,7 @@ class BookingListPage extends StatelessWidget {
                                         .copyWith(
                                           fontSize: fourteenPx,
                                           fontWeight: FontWeight.w400,
-                                          color: _myBookingList[index].status ==
-                                                  'Cancel'
-                                              ? const Color(0xffF54343)
-                                              : const Color(0xff62CFF4),
+                                          color: _myBookingList[index].color,
                                         ),
                                   ),
                                 ),
@@ -216,14 +215,41 @@ class BookingListPage extends StatelessWidget {
 
 List<MyBookingModel> _myBookingList = [
   MyBookingModel(
-    serviceName: 'Cleaner',
-    dateAndTime: '15 January 2024',
-    employeeName: 'Shehnaz dey',
-    customerName: 'Jane Cooper',
-    price: 40.0,
-    status: 'Complete',
-    image: SvgPath.img1,
-  ),
+      serviceName: 'Cleaner',
+      dateAndTime: '15 January 2024',
+      employeeName: 'Shehnaz dey',
+      customerName: 'Jane Cooper',
+      price: 40.0,
+      status: 'Complete',
+      image: SvgPath.img1,
+      color: ServiceAppColor.completeBoxColor),
+  MyBookingModel(
+      serviceName: 'Carpenter',
+      dateAndTime: '15 January 2024',
+      employeeName: 'James William',
+      customerName: 'Jane Cooper',
+      price: 40.0,
+      status: 'Cancel',
+      image: SvgPath.img2,
+      color: ServiceAppColor.cancelBoxColor),
+  MyBookingModel(
+      serviceName: 'Washing',
+      dateAndTime: '15 January 2024',
+      employeeName: 'Shehnaz dey',
+      customerName: 'Jane Cooper',
+      price: 40.0,
+      status: 'Complete',
+      image: SvgPath.img3,
+      color: ServiceAppColor.completeBoxColor),
+  MyBookingModel(
+      serviceName: 'Cleaner',
+      dateAndTime: '15 January 2024',
+      employeeName: 'Shehnaz dey',
+      customerName: 'Jane Cooper',
+      price: 40.0,
+      status: 'Complete',
+      image: SvgPath.img1,
+      color: ServiceAppColor.completeBoxColor),
   MyBookingModel(
     serviceName: 'Carpenter',
     dateAndTime: '15 January 2024',
@@ -232,32 +258,6 @@ List<MyBookingModel> _myBookingList = [
     price: 40.0,
     status: 'Cancel',
     image: SvgPath.img2,
-  ),
-  MyBookingModel(
-    serviceName: 'Washing',
-    dateAndTime: '15 January 2024',
-    employeeName: 'Shehnaz dey',
-    customerName: 'Jane Cooper',
-    price: 40.0,
-    status: 'Complete',
-    image: SvgPath.img3,
-  ),
-  MyBookingModel(
-    serviceName: 'Cleaner',
-    dateAndTime: '15 January 2024',
-    employeeName: 'Shehnaz dey',
-    customerName: 'Jane Cooper',
-    price: 40.0,
-    status: 'Complete',
-    image: SvgPath.img1,
-  ),
-  MyBookingModel(
-    serviceName: 'Carpenter',
-    dateAndTime: '15 January 2024',
-    employeeName: 'James William',
-    customerName: 'Jane Cooper',
-    price: 40.0,
-    status: 'Cancel',
-    image: SvgPath.img2,
+    color: ServiceAppColor.cancelBoxColor,
   ),
 ];

@@ -123,11 +123,9 @@ class MyBookingPage extends StatelessWidget {
                                     horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
                                   borderRadius: radius8,
-                                  color: _myBookingList[index].status ==
-                                          'Cancel'
-                                      ? const Color(0xffF54343).withOpacity(0.1)
-                                      : const Color(0xff62CFF4)
-                                          .withOpacity(0.1),
+                                  color: _myBookingList[index]
+                                      .color
+                                      .withOpacity(0.1),
                                 ),
                                 child: Text(
                                   _myBookingList[index].status,
@@ -137,10 +135,7 @@ class MyBookingPage extends StatelessWidget {
                                       .copyWith(
                                         fontSize: fourteenPx,
                                         fontWeight: FontWeight.w400,
-                                        color: _myBookingList[index].status ==
-                                                'Cancel'
-                                            ? const Color(0xffF54343)
-                                            : const Color(0xff62CFF4),
+                                        color: _myBookingList[index].color,
                                       ),
                                 ),
                               ),
@@ -177,6 +172,7 @@ List<MyBookingModel> _myBookingList = [
     price: 40.0,
     status: 'Complete',
     image: SvgPath.img1,
+    color: ServiceAppColor.completeBoxColor,
   ),
   MyBookingModel(
     serviceName: 'Carpenter',
@@ -185,6 +181,7 @@ List<MyBookingModel> _myBookingList = [
     price: 40.0,
     status: 'Cancel',
     image: SvgPath.img2,
+    color: ServiceAppColor.cancelBoxColor,
   ),
   MyBookingModel(
     serviceName: 'Washing',
@@ -193,6 +190,7 @@ List<MyBookingModel> _myBookingList = [
     price: 40.0,
     status: 'Complete',
     image: SvgPath.img3,
+    color: ServiceAppColor.completeBoxColor,
   ),
   MyBookingModel(
     serviceName: 'Cleaner',
@@ -201,5 +199,6 @@ List<MyBookingModel> _myBookingList = [
     price: 40.0,
     status: 'Complete',
     image: SvgPath.img1,
+    color: ServiceAppColor.completeBoxColor,
   ),
 ];

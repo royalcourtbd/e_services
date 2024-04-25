@@ -18,6 +18,12 @@ class EServices extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: FontFamily.roboto,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+          scrolledUnderElevation: 0,
+        ),
       ),
       title: 'E-Services',
       home: MainPage(),
