@@ -10,11 +10,12 @@ class TextBox extends StatelessWidget {
     required this.textEditingController,
     this.validator,
     this.onSaved,
-    TextInputType keyboardType = TextInputType.text,
+    this.keyboardType,
   });
   final String hintText;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
   final void Function(String?)? onSaved;
 
   final TextEditingController textEditingController;
@@ -31,10 +32,16 @@ class TextBox extends StatelessWidget {
         validator: validator,
         controller: textEditingController,
         onSaved: onSaved,
+        keyboardType: keyboardType,
         onTapOutside: (PointerDownEvent event) {
           FocusScope.of(context).unfocus();
         },
         obscureText: obscureText,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: ServiceAppColor.hintTextColor,
+              fontWeight: FontWeight.w500,
+              fontSize: twentyPx,
+            ),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(

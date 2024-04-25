@@ -19,10 +19,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-      ),
       extendBody: true,
       resizeToAvoidBottomInset: false,
       body: Padding(

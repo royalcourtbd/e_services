@@ -3,8 +3,6 @@ import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
 import 'package:e_services/presentation/common/submit_button.dart';
 import 'package:e_services/presentation/common/text_box.dart';
-import 'package:e_services/presentation/login/widgets/or_seoarator_widget.dart';
-import 'package:e_services/presentation/login/widgets/third_party_login_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -60,12 +58,44 @@ class SignUpPage extends StatelessWidget {
                       keyboardType: TextInputType.visiblePassword,
                     ),
                     gapH30,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Radio button 1
+                        Row(
+                          children: [
+                            Radio(
+                              value: true,
+                              groupValue: authC.isCustomer,
+                              onChanged: (value) {
+                                authC.isCustomer.value = true;
+                              },
+                            ),
+                            Text('Customer'),
+                          ],
+                        ),
+                        // Radio button 2
+                        Row(
+                          children: [
+                            Radio(
+                              value: false,
+                              groupValue: authC.isCustomer,
+                              onChanged: (value) {
+                                authC.isCustomer.value = false;
+                              },
+                            ),
+                            Text('Seller'),
+                          ],
+                        ),
+                      ],
+                    ),
                     SubmitButton(
                       buttonTitle: 'Sign Up',
                       onPressed: () async {
                         await authC.signUpwithemailpass(
                             authC.emailController.text,
-                            authC.passwordController.text);
+                            authC.passwordController.text,
+                            false);
                       },
                     ),
                   ],
