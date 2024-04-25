@@ -1,22 +1,128 @@
+import 'dart:developer';
+
+import 'package:e_services/presentation/dashboard/ui/dashboard_screen.dart';
+import 'package:e_services/presentation/my_booking_page.dart/ui/my_booking_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthController extends GetxController {
-//  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-//   User? get currentuser => firebaseAuth.currentUser;
-//   Stream<User?> get authstatechanges => firebaseAuth.authStateChanges();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final isCustomer = RxBool(true);
 
-//   Future<void> signInwithemailpass(String email, String password) async {
-//     await firebaseAuth.signInWithEmailAndPassword(
-//         email: email, password: password);
-//   }
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-//   Future<void> signUpwithemailpass(String email, String password) async {
-//     await firebaseAuth.createUserWithEmailAndPassword(
-//         email: email, password: password);
-//   }
+  User? get currentuser => firebaseAuth.currentUser;
+  Stream<User?> get authstatechanges => firebaseAuth.authStateChanges();
 
-//   Future<void> signOut() async {
-//     await firebaseAuth.signOut();
-//   }
+  Future<void> signInwithemailpass(String email, String password) async {
+    try {
+      Get.dialog(
+        Dialog(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ),
+      );
+      final x = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      Get.back();
+      log(x.toString());
+      if (x.toString().contains("UserCredential")) {
+        GetStorage().write("isLogin", true);
+
+        FirebaseFirestore.instance
+            .collection('users')
+            .where('email', isEqualTo: email)
+            .get()
+            .then((QuerySnapshot querySnapshot) {
+          if (querySnapshot.docs.isNotEmpty) {
+            // Assuming only one document matches the email, you can access it using querySnapshot.docs[0]
+            DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
+            Map<String, dynamic> userData =
+                documentSnapshot.data() as Map<String, dynamic>;
+            log(userData.toString());
+            if (userData["isCustomer"]) GetStorage().write("isCustomer", true);
+          }
+        });
+
+        Get.to(() => GetStorage().hasData("isCustomer")
+            ? DashboardScreen()
+            : const MyBookingPage());
+      }
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      Get.back();
+      Get.snackbar('Login Failed', "Please signup first");
+    } finally {}
+  }
+
+  Future<void> signUpwithemailpass(
+      String email, String password, bool isBuyer) async {
+    try {
+      Get.dialog(
+        Dialog(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ),
+      );
+      final d = await firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      log(d.toString());
+      Get.back();
+      if (d.toString().contains("isNewUser: true")) {
+        Get.back();
+        Get.snackbar('Sign Up Successful', "Successfully SignUp");
+
+        await firestore.collection('users').doc(d.user!.uid).set({
+          'isCustomer': isBuyer, 'email': email, // Example boolean value
+        });
+      } else if (d
+          .toString()
+          .contains("The email address is already in use by another account")) {
+        Get.back();
+        Get.snackbar('Email used', "Email used already");
+      }
+    } catch (e, s) {
+      log('ssss $e.toString()}');
+      if (e.toString().contains(" Password should be at least 6")) {
+        Get.snackbar('Password Error', "Password should be at least 6");
+      } else if (e.toString().contains("The email address is badly")) {
+        Get.snackbar('Email Error', "Email address not valid");
+      } else {
+        Get.snackbar('Sign Up Failed', "Please signup again");
+      }
+      Get.back();
+    } finally {}
+  }
+
+  Future<void> signOut() async {
+    final x = await firebaseAuth.signOut();
+  }
 }

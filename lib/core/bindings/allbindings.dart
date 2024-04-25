@@ -4,6 +4,6 @@ import 'package:get/get.dart';
 class AllBindings extends Bindings {
   @override
   void dependencies() {
-    final x = Get.lazyPut(() => AuthController());
+ Get.lazyPut(() => AuthController());
   }
 }

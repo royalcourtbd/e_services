@@ -2,10 +2,13 @@ import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
 import 'package:e_services/presentation/login/widgets/or_seoarator_widget.dart';
-import 'package:e_services/presentation/login/widgets/third_party_login_buttons.dart';
 import 'package:e_services/presentation/login/widgets/user_credentials_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
+import '../../common/submit_button.dart';
+import '../../signup/ui/sign_up.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -16,10 +19,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-      ),
       extendBody: true,
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -44,7 +43,12 @@ class LoginPage extends StatelessWidget {
             gapH50,
             const OrSeparatorWidget(),
             gapH50,
-            const ThirdPartyLoginButtons()
+            SubmitButton(
+              buttonTitle: 'Sign Up',
+              onPressed: () {
+                Get.to(() => SignUpPage());
+              },
+            )
           ],
         ),
       ),

@@ -1,9 +1,13 @@
 import 'package:e_services/core/bindings/allbindings.dart';
 import 'package:e_services/core/static/font_family.dart';
-import 'package:e_services/presentation/booking_cancel/ui/cancel_booking_page.dart';
-import 'package:e_services/presentation/main/ui/main_page.dart';
+import 'package:e_services/presentation/dashboard/ui/dashboard_screen.dart';
+import 'package:e_services/presentation/login/ui/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+
+import 'main/ui/main_page.dart';
+import 'my_booking/ui/my_booking_page.dart';
 
 class EServices extends StatelessWidget {
   const EServices({super.key});
@@ -26,7 +30,7 @@ class EServices extends StatelessWidget {
         ),
       ),
       title: 'E-Services',
-      home: MainPage(),
+      home: GetStorage().hasData("isLogin") ? MainPage() : LoginPage(),
     );
   }
 }
