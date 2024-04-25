@@ -2,7 +2,6 @@ import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/ui_const.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AddServicePage extends StatelessWidget {
   const AddServicePage({super.key});

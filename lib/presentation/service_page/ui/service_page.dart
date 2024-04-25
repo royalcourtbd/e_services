@@ -3,6 +3,7 @@ import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
 import 'package:e_services/presentation/service_page/ui/add_service_page.dart';
+import 'package:e_services/presentation/service_page/ui/manage_service_page.dart';
 import 'package:e_services/presentation/service_page/widgets/service_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,7 +41,6 @@ class ServicePage extends StatelessWidget {
                           InkWell(
                             onTap: () => Get.to(const AddServicePage()),
                             child: Container(
-                              width: 30.percentWidth,
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(
                                   vertical: tenPx, horizontal: fifteenPx),
@@ -62,21 +62,23 @@ class ServicePage extends StatelessWidget {
                             ),
                           ),
                           gapW10,
-                          Container(
-                            width: 30.percentWidth,
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                                vertical: tenPx, horizontal: fifteenPx),
-                            decoration: BoxDecoration(
-                              color: ServiceAppColor.upComingBoxColor,
-                              borderRadius: radius8,
-                            ),
-                            child: Text(
-                              'Manage service',
-                              style: TextStyle(
-                                fontSize: fourteenPx,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
+                          InkWell(
+                            onTap: () => Get.to(const ManageServicePage()),
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: tenPx, horizontal: fifteenPx),
+                              decoration: BoxDecoration(
+                                color: ServiceAppColor.upComingBoxColor,
+                                borderRadius: radius8,
+                              ),
+                              child: Text(
+                                'Manage service',
+                                style: TextStyle(
+                                  fontSize: fourteenPx,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           )

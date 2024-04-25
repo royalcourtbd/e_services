@@ -1,8 +1,10 @@
 import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
+import 'package:e_services/presentation/service_page/ui/service_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class SellerProfilePage extends StatelessWidget {
   const SellerProfilePage({super.key});
@@ -45,7 +47,7 @@ class SellerProfilePage extends StatelessWidget {
             ProfileWidgetRow(
               iconPath: SvgPath.icService,
               title: 'Services',
-              onTap: () {},
+              onTap: () => Get.to(const ServicePage()),
             ),
             gapH30,
             ProfileWidgetRow(
@@ -87,25 +89,28 @@ class ProfileWidgetRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            iconPath,
-            width: twentyFourPx,
-            height: twentyFourPx,
-          ),
-          gapW15,
-          Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: fourteenPx,
+      child: Padding(
+        padding: paddingV10,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              width: twentyFourPx,
+              height: twentyFourPx,
             ),
-          )
-        ],
+            gapW15,
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: fourteenPx,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

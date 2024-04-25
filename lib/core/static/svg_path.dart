@@ -18,6 +18,9 @@ class SvgPath {
   static const String icHex = "assets/images/svg/ic_hex.svg";
   static const String icTerm = "assets/images/svg/term.svg";
   static const String icTerms = "assets/images/svg/ic_terms.svg";
+  static const String icDelete = "assets/images/svg/delete.svg";
+  static const String icServiceError = "assets/images/svg/service_error.svg";
+  static const String icEdit = "assets/images/svg/edit.svg";
   static const String icNotification = "assets/images/svg/ic_notification.svg";
   static const String icSearch = "assets/images/svg/icsearch-outline.svg";
   static const String icRedClose = "assets/images/svg/ic_red_close.svg";
