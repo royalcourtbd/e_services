@@ -128,7 +128,7 @@ class BookingListPage extends StatelessWidget {
                                           .copyWith(
                                             fontSize: fourteenPx,
                                             fontWeight: FontWeight.w400,
-                                            color: const Color(0xff181717),
+                                            color: ServiceAppColor.textColor,
                                           ),
                                     ),
                                     gapW15,
@@ -154,7 +154,7 @@ class BookingListPage extends StatelessWidget {
                                       .copyWith(
                                         fontSize: fourteenPx,
                                         fontWeight: FontWeight.w400,
-                                        color: const Color(0xff181717),
+                                        color: ServiceAppColor.textColor,
                                       ),
                                 ),
                                 const Spacer(),

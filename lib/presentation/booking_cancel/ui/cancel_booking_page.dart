@@ -17,7 +17,7 @@ class CancelBokingPage extends StatefulWidget {
 
 class _CancelBokingPageState extends State<CancelBokingPage> {
   int _selectedReasonIndex = 0;
-  String _comment = '';
+  String comment = '';
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class _CancelBokingPageState extends State<CancelBokingPage> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      _comment = value;
+                      comment = value;
                     });
                   },
                 ),

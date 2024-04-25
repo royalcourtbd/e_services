@@ -66,7 +66,7 @@ class OtpVerify extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: twentyPx,
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xff181717),
+                    color: ServiceAppColor.textColor,
                   ),
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,

@@ -113,7 +113,7 @@ class MyBookingPage extends StatelessWidget {
                                     .copyWith(
                                       fontSize: fourteenPx,
                                       fontWeight: FontWeight.w400,
-                                      color: const Color(0xff181717),
+                                      color: ServiceAppColor.textColor,
                                     ),
                               ),
                               gapW15,
@@ -158,7 +158,7 @@ class MyBookingPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: fourteenPx,
                           fontWeight: FontWeight.w500,
-                          color: const Color(0xff181717),
+                          color: ServiceAppColor.textColor,
                         ),
                   ),
                 ],

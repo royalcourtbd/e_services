@@ -15,6 +15,7 @@ class SvgPath {
   static const String icUserProfile = "assets/images/svg/iconamoon_profile.svg";
   static const String icLogout2 = "assets/images/svg/logout.svg";
   static const String icService = "assets/images/svg/service.svg";
+  static const String icHex = "assets/images/svg/ic_hex.svg";
   static const String icTerm = "assets/images/svg/term.svg";
   static const String icTerms = "assets/images/svg/ic_terms.svg";
   static const String icNotification = "assets/images/svg/ic_notification.svg";
