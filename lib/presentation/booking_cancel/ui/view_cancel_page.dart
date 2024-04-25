@@ -30,7 +30,7 @@ class ViewCancelledPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: twentyPx,
                       fontWeight: FontWeight.w500,
-                      color: const Color(0xffF54343),
+                      color: ServiceAppColor.cancelBoxColor,
                     ),
               ),
               gapH16,
@@ -170,7 +170,7 @@ class ViewCancelledPage extends StatelessWidget {
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                       colors: [
-                        Color(0xFF8F2CF2), // #8F2CF2
+                        ServiceAppColor.upComingBoxColor, // #8F2CF2
                         Color(0xFF2C67F2), // #2C67F2
                       ],
                       stops: [0.0, 1.0],

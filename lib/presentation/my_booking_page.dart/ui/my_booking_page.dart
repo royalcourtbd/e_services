@@ -124,11 +124,12 @@ class MyBookingPage extends StatelessWidget {
                                     horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
                                   borderRadius: radius8,
-                                  color: _myBookingList[index].status ==
-                                          'Cancel'
-                                      ? const Color(0xffF54343).withOpacity(0.1)
-                                      : const Color(0xff62CFF4)
-                                          .withOpacity(0.1),
+                                  color:
+                                      _myBookingList[index].status == 'Cancel'
+                                          ? ServiceAppColor.cancelBoxColor
+                                              .withOpacity(0.1)
+                                          : ServiceAppColor.completeBoxColor
+                                              .withOpacity(0.1),
                                 ),
                                 child: Text(
                                   _myBookingList[index].status,
@@ -140,8 +141,8 @@ class MyBookingPage extends StatelessWidget {
                                         fontWeight: FontWeight.w400,
                                         color: _myBookingList[index].status ==
                                                 'Cancel'
-                                            ? const Color(0xffF54343)
-                                            : const Color(0xff62CFF4),
+                                            ? ServiceAppColor.cancelBoxColor
+                                            : ServiceAppColor.completeBoxColor,
                                       ),
                                 ),
                               ),

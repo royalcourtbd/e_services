@@ -18,7 +18,7 @@ class CancelButton extends StatelessWidget {
           width: double.infinity,
           height: fiftyPx,
           decoration: BoxDecoration(
-            color: const Color(0xff8F2CF2),
+            color: ServiceAppColor.upComingBoxColor,
             borderRadius: radius10,
           ),
           child: const Text(
@@ -80,7 +80,7 @@ class CancelButton extends StatelessWidget {
                   ),
                   gapW12,
                   BottomSheetButton(
-                    buttonColor: const Color(0xff8F2CF2),
+                    buttonColor: ServiceAppColor.upComingBoxColor,
                     buttonTitle: 'Reschedule',
                     onTap: () {},
                   ),

@@ -26,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Container(
                 height: 40.percentWidth,
                 decoration: BoxDecoration(
-                  color: const Color(0xff8F2CF2),
+                  color: ServiceAppColor.upComingBoxColor,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(sixteenPx),
                     bottomRight: Radius.circular(sixteenPx),
@@ -294,13 +294,13 @@ List<DashBoardItemModel> dashboardItemModel = [
     iconPath: SvgPath.icBag,
   ),
   DashBoardItemModel(
-    color: const Color(0xff62CFF4),
+    color: ServiceAppColor.completeBoxColor,
     value: '130',
     label: 'Completed',
     iconPath: SvgPath.icComplete,
   ),
   DashBoardItemModel(
-    color: const Color(0xff8F2CF2),
+    color: ServiceAppColor.upComingBoxColor,
     value: '3',
     label: 'Upcoming',
     iconPath: SvgPath.icCallMisedOut,

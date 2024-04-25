@@ -8,14 +8,14 @@ import 'package:e_services/presentation/booking_cancel/widgets/show_service_card
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CancelBookingPage extends StatefulWidget {
-  const CancelBookingPage({super.key});
+class CancelBokingPage extends StatefulWidget {
+  const CancelBokingPage({super.key});
 
   @override
-  _CancelBookingPageState createState() => _CancelBookingPageState();
+  State<CancelBokingPage> createState() => _CancelBokingPageState();
 }
 
-class _CancelBookingPageState extends State<CancelBookingPage> {
+class _CancelBokingPageState extends State<CancelBokingPage> {
   int _selectedReasonIndex = 0;
   String _comment = '';
 

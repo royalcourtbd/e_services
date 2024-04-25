@@ -52,6 +52,7 @@ class SignUpPage extends StatelessWidget {
                         hintText: 'Enter Email',
                         textEditingController: authC.emailController,
                         keyboardType: TextInputType.visiblePassword,
+                        validator: (value) => emailValidation(value!),
                       ),
                       gapH30,
                       TextBox(
@@ -59,6 +60,7 @@ class SignUpPage extends StatelessWidget {
                         textEditingController: authC.passwordController,
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
+                        validator: (value) => passwordValidation(value!),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -95,12 +97,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       SubmitButton(
                         buttonTitle: 'Sign Up',
-                        onPressed: () async {
-                          await authC.signUpwithemailpass(
-                              authC.emailController.text,
-                              authC.passwordController.text,
-                              authC.isCustomer.value);
-                        },
+                        onPressed: () => signInButton(),
                       ),
                     ],
                   ))
@@ -109,5 +106,35 @@ class SignUpPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  emailValidation(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Your Email';
+    } else if (!GetUtils.isEmail(value)) {
+      return 'Please Enter A Valid Email Address';
+    }
+    return null;
+  }
+
+  passwordValidation(value) {
+    if (value.isEmpty) {
+      return 'Please Enter Your Password';
+    } else if (value.length <= 7) {
+      return 'password should be 8 characters';
+    }
+    return null;
+  }
+
+  void signInButton() async {
+    final authC = Get.find<AuthController>();
+
+    final isValid = signUpFormKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    await authC.signUpwithemailpass(authC.emailController.text,
+        authC.passwordController.text, authC.isCustomer.value);
+    signUpFormKey.currentState!.save();
   }
 }

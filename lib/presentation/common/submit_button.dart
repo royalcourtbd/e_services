@@ -1,3 +1,4 @@
+import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/ui_const.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class SubmitButton extends StatelessWidget {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             colors: [
-              Color(0xFF62CFF4),
+              ServiceAppColor.completeBoxColor,
               Color(0xFF2C67F2),
             ],
             stops: [

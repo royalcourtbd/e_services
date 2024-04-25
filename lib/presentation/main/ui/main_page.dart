@@ -1,3 +1,4 @@
+import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/presentation/booking/ui/booking_list_page.dart';
 import 'package:e_services/presentation/dashboard/ui/dashboard_screen.dart';
@@ -71,7 +72,7 @@ class MainPage extends StatelessWidget {
         begin: Alignment.topCenter, // Start at the top
         end: Alignment.bottomCenter, // End at the bottom
         colors: [
-          Color(0xFF8F2CF2), // CSS #8F2CF2
+          ServiceAppColor.upComingBoxColor, // CSS #8F2CF2
           Color(0xFF2C67F2) // CSS #2C67F2
         ],
       ),
