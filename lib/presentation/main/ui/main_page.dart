@@ -26,8 +26,8 @@ class MainPage extends StatelessWidget {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+              icon: Icon(Icons.menu),
+              label: 'Booking',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),

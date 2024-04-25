@@ -49,6 +49,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               gapH50,
               gapH50,
+              gapH50,
+              gapH50,
               Expanded(
                 child: Container(
                   color: ServiceAppColor.scaffoldBgCOlor,
@@ -117,32 +119,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Column(
                 children: [
-                  _buildStatCard(
-                    color: Colors.blue,
-                    iconData: Icons.calendar_today,
-                    value: '12',
-                    label: 'Today Booking',
-                  ),
-                  _buildStatCard(
-                    color: Colors.teal,
-                    iconData: Icons.check_circle,
-                    value: '130',
-                    label: 'Completed',
-                  ),
-                  _buildStatCard(
-                    color: Colors.purple,
-                    iconData: Icons.arrow_upward,
-                    value: '3',
-                    label: 'Upcoming',
-                  ),
-                  _buildStatCard(
-                    color: Colors.amber,
-                    iconData: Icons.cancel,
-                    value: '7',
-                    label: 'Canceled',
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildStatCard(
+                          color: Colors.blue,
+                          iconData: Icons.calendar_today,
+                          value: '12',
+                          label: 'Today Booking',
+                        ),
+                        _buildStatCard(
+                          color: Colors.teal,
+                          iconData: Icons.check_circle,
+                          value: '130',
+                          label: 'Completed',
+                        ),
+                      ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildStatCard(
+                        color: Colors.purple,
+                        iconData: Icons.arrow_upward,
+                        value: '3',
+                        label: 'Upcoming',
+                      ),
+                      _buildStatCard(
+                        color: Colors.amber,
+                        iconData: Icons.cancel,
+                        value: '7',
+                        label: 'Canceled',
+                      ),
+                    ],
                   ),
                 ],
               ),

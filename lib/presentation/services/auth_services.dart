@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:e_services/presentation/dashboard/ui/dashboard_screen.dart';
 import 'package:e_services/presentation/my_booking_page.dart/ui/my_booking_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AuthController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final isCustomer = RxBool(false);
+  final isCustomer = RxBool(true);
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -43,7 +44,25 @@ class AuthController extends GetxController {
       log(x.toString());
       if (x.toString().contains("UserCredential")) {
         GetStorage().write("isLogin", true);
-        Get.to(() => MyBookingPage());
+
+        FirebaseFirestore.instance
+            .collection('users')
+            .where('email', isEqualTo: email)
+            .get()
+            .then((QuerySnapshot querySnapshot) {
+          if (querySnapshot.docs.isNotEmpty) {
+            // Assuming only one document matches the email, you can access it using querySnapshot.docs[0]
+            DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
+            Map<String, dynamic> userData =
+                documentSnapshot.data() as Map<String, dynamic>;
+            log(userData.toString());
+            if (userData["isCustomer"]) GetStorage().write("isCustomer", true);
+          }
+        });
+
+        Get.to(() => GetStorage().hasData("isCustomer")
+            ? DashboardScreen()
+            : const MyBookingPage());
       }
     } catch (e, s) {
       log(e.toString());
@@ -80,9 +99,15 @@ class AuthController extends GetxController {
       if (d.toString().contains("isNewUser: true")) {
         Get.back();
         Get.snackbar('Sign Up Successful', "Successfully SignUp");
+
         await firestore.collection('users').doc(d.user!.uid).set({
-          'is': false, // Example boolean value
+          'isCustomer': isBuyer, 'email': email, // Example boolean value
         });
+      } else if (d
+          .toString()
+          .contains("The email address is already in use by another account")) {
+        Get.back();
+        Get.snackbar('Email used', "Email used already");
       }
     } catch (e, s) {
       log('ssss $e.toString()}');
