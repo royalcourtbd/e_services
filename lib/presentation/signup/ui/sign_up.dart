@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../core/bindings/base.dart';
 import '../../services/auth_services.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final authC = Get.find<AuthController>();
   final GlobalKey<FormState> signUpFormKey =
       GlobalKey<FormState>(debugLabel: '_signUpFormKey');
   @override
@@ -50,14 +50,14 @@ class SignUpPage extends StatelessWidget {
                     children: [
                       TextBox(
                         hintText: 'Enter Email',
-                        textEditingController: authC.emailController,
+                        textEditingController: Base.authC.emailController,
                         keyboardType: TextInputType.visiblePassword,
                         validator: (value) => emailValidation(value!),
                       ),
                       gapH30,
                       TextBox(
                         hintText: 'Password',
-                        textEditingController: authC.passwordController,
+                        textEditingController: Base.authC.passwordController,
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                         validator: (value) => passwordValidation(value!),
@@ -70,10 +70,10 @@ class SignUpPage extends StatelessWidget {
                             children: [
                               Radio(
                                 value: true,
-                                groupValue: authC.isCustomer.value,
+                                groupValue: Base.authC.isCustomer.value,
                                 onChanged: (value) {
-                                  authC.isCustomer.value = true;
-                                  log(authC.isCustomer.value.toString());
+                                  Base.authC.isCustomer.value = true;
+                                  log(Base.authC.isCustomer.value.toString());
                                 },
                               ),
                               const Text('Customer'),
@@ -84,10 +84,10 @@ class SignUpPage extends StatelessWidget {
                             children: [
                               Radio(
                                 value: false,
-                                groupValue: authC.isCustomer.value,
+                                groupValue: Base.authC.isCustomer.value,
                                 onChanged: (value) {
-                                  authC.isCustomer.value = false;
-                                  log(authC.isCustomer.value.toString());
+                                  Base.authC.isCustomer.value = false;
+                                  log(Base.authC.isCustomer.value.toString());
                                 },
                               ),
                               const Text('Seller'),
@@ -135,6 +135,5 @@ class SignUpPage extends StatelessWidget {
     }
     await authC.signUpwithemailpass(authC.emailController.text,
         authC.passwordController.text, authC.isCustomer.value);
-    signUpFormKey.currentState!.save();
   }
 }

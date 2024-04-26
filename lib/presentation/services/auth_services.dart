@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_services/presentation/dashboard/ui/dashboard_screen.dart';
-import 'package:e_services/presentation/my_booking_page.dart/ui/my_booking_page.dart';
+import 'package:e_services/presentation/login/ui/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,7 +42,7 @@ class AuthController extends GetxController {
       log(x.toString());
       if (x.toString().contains("UserCredential")) {
         GetStorage().write("isLogin", true);
-
+        GetStorage().write("email", email);
         FirebaseFirestore.instance
             .collection('users')
             .where('email', isEqualTo: email)
@@ -55,13 +54,15 @@ class AuthController extends GetxController {
             Map<String, dynamic> userData =
                 documentSnapshot.data() as Map<String, dynamic>;
             log(userData.toString());
-            if (userData["isCustomer"]) GetStorage().write("isCustomer", true);
+            log(userData["isCustomer"].toString());
+            GetStorage().write(
+                "isCustomer", userData["isCustomer"] == "true" ? true : false);
           }
         });
 
-        Get.to(() => GetStorage().hasData("isCustomer")
-            ? const DashboardScreen()
-            : const MyBookingPage());
+        // Get.to(() => GetStorage().read("isCustomer")
+        //     ? const DashboardScreen()
+        //     : const DashboardScreen());
       }
     } catch (e, s) {
       log(e.toString());
@@ -108,7 +109,7 @@ class AuthController extends GetxController {
         Get.back();
         Get.snackbar('Email used', "Email used already");
       }
-    } catch (e, s) {
+    } catch (e) {
       log('ssss $e.toString()}');
       if (e.toString().contains(" Password should be at least 6")) {
         Get.snackbar('Password Error', "Password should be at least 6");
@@ -122,6 +123,13 @@ class AuthController extends GetxController {
   }
 
   Future<void> signOut() async {
-    final x = await firebaseAuth.signOut();
+    try {
+      await firebaseAuth.signOut();
+      GetStorage().remove("isLogin");
+      Get.offAll(() => LoginPage());
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+    }
   }
 }

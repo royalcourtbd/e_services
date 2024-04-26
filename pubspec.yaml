@@ -48,6 +48,8 @@ dependencies:
   cloud_firestore: ^4.15.8
   flutter_rating_bar: ^4.0.1
   stylish_bottom_bar: ^1.1.0
+  flutter_map: ^6.1.0
+  location: ^6.0.1
 
 dev_dependencies:
   flutter_test:

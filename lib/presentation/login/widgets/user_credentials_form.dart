@@ -7,9 +7,10 @@ import 'package:e_services/presentation/common/submit_button.dart';
 import 'package:e_services/presentation/common/text_box.dart';
 import 'package:get/get.dart';
 
+import '../../../core/bindings/base.dart';
+
 class UserCredentialsForm extends StatelessWidget {
   UserCredentialsForm({super.key});
-  final authC = Get.find<AuthController>();
   final GlobalKey<FormState> loginFormKey =
       GlobalKey<FormState>(debugLabel: '_loginFormKey');
   @override
@@ -20,7 +21,7 @@ class UserCredentialsForm extends StatelessWidget {
         children: [
           TextBox(
             hintText: 'Email/Phone',
-            textEditingController: authC.emailController,
+            textEditingController: Base.authC.emailController,
             validator: (value) => emailValidation(value!),
             keyboardType: TextInputType.emailAddress,
           ),
@@ -28,7 +29,7 @@ class UserCredentialsForm extends StatelessWidget {
           TextBox(
             hintText: 'Password',
             obscureText: true,
-            textEditingController: authC.passwordController,
+            textEditingController: Base.authC.passwordController,
             validator: (value) => passwordValidation(value!),
             keyboardType: TextInputType.visiblePassword,
           ),

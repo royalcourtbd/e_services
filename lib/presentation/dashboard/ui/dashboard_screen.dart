@@ -3,9 +3,11 @@ import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
 import 'package:e_services/presentation/dashboard/model/dashboard_item_model.dart';
+import 'package:e_services/presentation/service_page/ui/add_service_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -18,6 +20,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.teal,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        onPressed: () {
+          Get.to(() => const AddServicePage());
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: ServiceAppColor.scaffoldBgCOlor,
       body: Stack(
         children: [
@@ -139,12 +152,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   childAspectRatio: 1 / .5,
                 ),
                 itemBuilder: (context, index) {
-                  return _buildStatCard(
-                    color: dashboardItemModel[index].color,
-                    iconPath: dashboardItemModel[index]
-                        .iconPath, // Error: The argument type 'String' can't be assigned to the parameter type 'IconData',
-                    value: dashboardItemModel[index].value,
-                    label: dashboardItemModel[index].label,
+                  return FittedBox(
+                    child: _buildStatCard(
+                      color: dashboardItemModel[index].color,
+                      iconPath: dashboardItemModel[index]
+                          .iconPath, // Error: The argument type 'String' can't be assigned to the parameter type 'IconData',
+                      value: dashboardItemModel[index].value,
+                      label: dashboardItemModel[index].label,
+                    ),
                   );
                 },
               ),

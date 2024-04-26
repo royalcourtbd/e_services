@@ -1,3 +1,4 @@
+import 'package:e_services/core/bindings/base.dart';
 import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
@@ -65,7 +66,9 @@ class SellerProfilePage extends StatelessWidget {
             ProfileWidgetRow(
               iconPath: SvgPath.icLogout2,
               title: 'Log out',
-              onTap: () {},
+              onTap: () async {
+                Base.authC.signOut();
+              },
             ),
             gapH30,
           ],
