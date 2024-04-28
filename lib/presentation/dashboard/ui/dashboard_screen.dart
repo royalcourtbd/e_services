@@ -20,6 +20,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
+    Base.authC.getProfile();
     return Scaffold(
       backgroundColor: ServiceAppColor.scaffoldBgCOlor,
       body: Stack(
@@ -38,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Base.authC.profileModel.value!.imageLink != ''
+                    Base.authC.profileModel.value != null
                         ? Padding(
                             padding: EdgeInsets.all(twentyPx),
                             child: CircleAvatar(

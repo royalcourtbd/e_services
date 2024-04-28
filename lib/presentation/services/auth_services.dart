@@ -66,14 +66,13 @@ class AuthController extends GetxController {
             DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
             Map<String, dynamic> userData =
                 documentSnapshot.data() as Map<String, dynamic>;
-            final profile = ProfileModel()
+
+            await IsarService().saveData(ProfileModel()
               ..email = email
               ..fullname = userData['fullname']
-    
+              ..id = 0
               ..imageLink = userData['imageLink']
-              ..isCustomer = userData['isCustomer'];
-
-            await IsarService().saveData(profile);
+              ..isCustomer = userData['isCustomer']);
 
             await GetStorage().write(
                 "isCustomer", userData["isCustomer"] == true ? true : false);

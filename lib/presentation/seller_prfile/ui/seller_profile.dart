@@ -2,17 +2,15 @@ import 'package:e_services/core/bindings/base.dart';
 import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
-import 'package:e_services/presentation/services/isar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
 
 class SellerProfilePage extends StatelessWidget {
   const SellerProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Base.authC.getProfile();
 
     return Scaffold(
       appBar: AppBar(
@@ -22,12 +20,12 @@ class SellerProfilePage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-              child:Base.authC.profileModel.value!.imageLink != ''
+              child: Base.authC.profileModel.value!.imageLink != ''
                   ? CircleAvatar(
                       radius: 30,
                       child: Image.network(
                         fit: BoxFit.cover,
-                Base.authC.profileModel.value!.imageLink!,
+                        Base.authC.profileModel.value!.imageLink!,
                         width: hundredPx,
                         height: hundredPx,
                       ),
@@ -49,7 +47,7 @@ class SellerProfilePage extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                 Base.authC.profileModel.value!.fullname!,
+                Base.authC.profileModel.value!.fullname!,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: twentyFourPx,
                       fontWeight: FontWeight.w500,
