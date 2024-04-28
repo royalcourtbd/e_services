@@ -27,6 +27,7 @@ class EServices extends StatelessWidget {
         ),
       ),
       title: 'E-Services',
+      // home: const BuyerProfilePage(),
       home: GetStorage().hasData("isLogin") ? MainPage() : LoginPage(),
     );
   }
