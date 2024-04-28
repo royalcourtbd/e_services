@@ -1,6 +1,5 @@
 import 'package:e_services/core/bindings/allbindings.dart';
 import 'package:e_services/core/static/font_family.dart';
-import 'package:e_services/presentation/buyer_home/buyer_home_page.dart';
 import 'package:e_services/presentation/login/ui/login_page.dart';
 import 'package:e_services/presentation/main/ui/main_page.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ class EServices extends StatelessWidget {
         ),
       ),
       title: 'E-Services',
-      // home: BuyerHomePage(),
+      // home: BuyerHomePage2(),
       home: GetStorage().hasData("isLogin") ? MainPage() : LoginPage(),
     );
   }
