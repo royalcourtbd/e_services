@@ -2,16 +2,18 @@ import 'package:e_services/core/bindings/base.dart';
 import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
-import 'package:e_services/presentation/service_page/ui/service_page.dart';
+import 'package:e_services/presentation/services/isar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SellerProfilePage extends StatelessWidget {
   const SellerProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -20,11 +22,21 @@ class SellerProfilePage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-              child: Image.asset(
-                SvgPath.imgProfilePic2,
-                width: sixtyPx,
-                height: sixtyPx,
-              ),
+              child:Base.authC.profileModel.value!.imageLink != ''
+                  ? CircleAvatar(
+                      radius: 30,
+                      child: Image.network(
+                        fit: BoxFit.cover,
+                Base.authC.profileModel.value!.imageLink!,
+                        width: hundredPx,
+                        height: hundredPx,
+                      ),
+                    )
+                  : Image.asset(
+                      SvgPath.imgProfilePic2,
+                      width: sixtyPx,
+                      height: sixtyPx,
+                    ),
             ),
             SvgPicture.asset(SvgPath.icCross)
           ],
@@ -37,7 +49,7 @@ class SellerProfilePage extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Shehnaz dey',
+                 Base.authC.profileModel.value!.fullname!,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: twentyFourPx,
                       fontWeight: FontWeight.w500,
@@ -46,16 +58,11 @@ class SellerProfilePage extends StatelessWidget {
             ),
             gapH25,
             ProfileWidgetRow(
-              iconPath: SvgPath.icService,
-              title: 'Services',
-              onTap: () => Get.to(const ServicePage()),
-            ),
-            gapH30,
-            ProfileWidgetRow(
-              iconPath: SvgPath.icUserProfile,
-              title: 'Profile',
-              onTap: () {},
-            ),
+                iconPath: SvgPath.icService,
+                title: 'Services',
+                onTap: () async {
+                  await Base.sellerC.getMyServices();
+                }),
             gapH30,
             ProfileWidgetRow(
               iconPath: SvgPath.icTerm,

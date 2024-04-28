@@ -1,13 +1,14 @@
+import 'package:e_services/core/bindings/base.dart';
 import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/presentation/booking/ui/booking_list_page.dart';
 import 'package:e_services/presentation/dashboard/ui/dashboard_screen.dart';
 import 'package:e_services/presentation/main/presenter/main_presenter.dart';
-import 'package:e_services/presentation/message/ui/message_page.dart';
 import 'package:e_services/presentation/seller_prfile/ui/seller_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
@@ -18,6 +19,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Base.sellerC.getCurrentLatLng();
     return Scaffold(
       body: Obx(() => _getPage(controller.selectedIndex.value)),
       bottomNavigationBar: Obx(
@@ -29,13 +31,10 @@ class MainPage extends StatelessWidget {
                 icon: _buildBottomBarItem(0, SvgPath.icHome),
                 title: const Text('Home')),
             BottomBarItem(
-                icon: _buildBottomBarItem(1, SvgPath.icMessage),
-                title: const Text('Messages')),
-            BottomBarItem(
-                icon: _buildBottomBarItem(2, SvgPath.icDocument),
+                icon: _buildBottomBarItem(1, SvgPath.icDocument),
                 title: const Text('Booking')),
             BottomBarItem(
-                icon: _buildBottomBarItem(3, SvgPath.icProfile),
+                icon: _buildBottomBarItem(2, SvgPath.icProfile),
                 title: const Text('Profile')),
           ],
           option: AnimatedBarOptions(
@@ -83,11 +82,10 @@ class MainPage extends StatelessWidget {
     switch (index) {
       case 0:
         return const DashboardScreen();
+
       case 1:
-        return const MassagePage();
-      case 2:
         return const BookingListPage();
-      case 3:
+      case 2:
         return const SellerProfilePage();
       default:
         return const BookingListPage();

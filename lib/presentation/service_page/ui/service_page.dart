@@ -39,7 +39,7 @@ class ServicePage extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                            onTap: () => Get.to(const AddServicePage()),
+                            onTap: () => Get.to( AddServicePage(isEdit: false,)),
                             child: Container(
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(
@@ -63,7 +63,11 @@ class ServicePage extends StatelessWidget {
                           ),
                           gapW10,
                           InkWell(
-                            onTap: () => Get.to(const ManageServicePage()),
+                            onTap: () {
+                              // Get.snackbar(
+                              //     "Under Development", "Work In Progress");
+                              Get.to(() => const ManageServicePage());
+                            },
                             child: Container(
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(

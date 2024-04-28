@@ -1,15 +1,27 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services/presentation/login/ui/login_page.dart';
+import 'package:e_services/presentation/main/ui/main_page.dart';
+import 'package:e_services/presentation/services/isar_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
+
+import '../../core/models/profile_model.dart';
 
 class AuthController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final fullName = TextEditingController();
   final isCustomer = RxBool(true);
+  final profileModel = Rx<ProfileModel?>(null);
+  final image = Rx<File?>(null);
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -39,6 +51,7 @@ class AuthController extends GetxController {
       final x = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       Get.back();
+
       log(x.toString());
       if (x.toString().contains("UserCredential")) {
         GetStorage().write("isLogin", true);
@@ -47,16 +60,26 @@ class AuthController extends GetxController {
             .collection('users')
             .where('email', isEqualTo: email)
             .get()
-            .then((QuerySnapshot querySnapshot) {
+            .then((QuerySnapshot querySnapshot) async {
           if (querySnapshot.docs.isNotEmpty) {
             // Assuming only one document matches the email, you can access it using querySnapshot.docs[0]
             DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
             Map<String, dynamic> userData =
                 documentSnapshot.data() as Map<String, dynamic>;
-            log(userData.toString());
-            log(userData["isCustomer"].toString());
-            GetStorage().write(
-                "isCustomer", userData["isCustomer"] == "true" ? true : false);
+            final profile = ProfileModel()
+              ..email = email
+              ..fullname = userData['fullname']
+    
+              ..imageLink = userData['imageLink']
+              ..isCustomer = userData['isCustomer'];
+
+            await IsarService().saveData(profile);
+
+            await GetStorage().write(
+                "isCustomer", userData["isCustomer"] == true ? true : false);
+
+            Get.offAll(() =>
+                userData["isCustomer"] == false ? MainPage() : LoginPage());
           }
         });
 
@@ -70,6 +93,33 @@ class AuthController extends GetxController {
       Get.back();
       Get.snackbar('Login Failed', "Please signup first");
     } finally {}
+  }
+
+  pickImage() async {
+    final x = await ImagePicker().pickImage(source: ImageSource.camera);
+    if (x != null) {
+      image(File(x.path));
+    }
+  }
+
+  getProfile() async {
+    final profiles = await IsarService().getAllData();
+    profileModel(profiles);
+  }
+
+  Future<String> uploadImage(String emailAddrss) async {
+    String link = '';
+    firebase_storage.Reference ref =
+        firebase_storage.FirebaseStorage.instance.ref().child(emailAddrss);
+
+    firebase_storage.UploadTask uploadTask = ref.putFile(image.value!);
+
+    await uploadTask.whenComplete(() async {
+      final x = await ref.getDownloadURL();
+
+      link = x;
+    });
+    return link;
   }
 
   Future<void> signUpwithemailpass(
@@ -95,14 +145,15 @@ class AuthController extends GetxController {
       final d = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       log(d.toString());
-      Get.back();
+
       if (d.toString().contains("isNewUser: true")) {
+        final link = await uploadImage(email);
+        await firestore.collection('users').doc(d.user!.uid).set({
+          'isCustomer': isBuyer, 'email': email,
+          "fullname": fullName.text, "imageLink": link // Example boolean value
+        });
         Get.back();
         Get.snackbar('Sign Up Successful', "Successfully SignUp");
-
-        await firestore.collection('users').doc(d.user!.uid).set({
-          'isCustomer': isBuyer, 'email': email, // Example boolean value
-        });
       } else if (d
           .toString()
           .contains("The email address is already in use by another account")) {

@@ -1,13 +1,14 @@
 import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/config/service_screen.dart';
+import 'package:e_services/core/models/profile_model.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
 import 'package:e_services/presentation/dashboard/model/dashboard_item_model.dart';
-import 'package:e_services/presentation/service_page/ui/add_service_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+
+import '../../../core/bindings/base.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -20,17 +21,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.teal,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        onPressed: () {
-          Get.to(() => const AddServicePage());
-        },
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
       backgroundColor: ServiceAppColor.scaffoldBgCOlor,
       body: Stack(
         children: [
@@ -48,28 +38,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(twentyPx),
-                      child: const CircleAvatar(
-                        backgroundImage: AssetImage(SvgPath.imgProfilePic2),
-                        radius: 15,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: CircleAvatar(
-                        radius: 15,
-                        backgroundColor: Colors.white.withOpacity(0.3),
-                        child: SvgPicture.asset(
-                          SvgPath.icNotification,
-                          width: 18,
-                          colorFilter: const ColorFilter.mode(
-                            Colors.white,
-                            BlendMode.srcATop,
+                    Base.authC.profileModel.value!.imageLink != ''
+                        ? Padding(
+                            padding: EdgeInsets.all(twentyPx),
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  Base.authC.profileModel.value!.imageLink!),
+                              radius: 15,
+                            ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.all(twentyPx),
+                            child: const CircleAvatar(
+                              radius: 15,
+                              child: Icon(Icons.person),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(16.0),
+                    //   child: CircleAvatar(
+                    //     radius: 15,
+                    //     backgroundColor: Colors.white.withOpacity(0.3),
+                    //     child: SvgPicture.asset(
+                    //       SvgPath.icNotification,
+                    //       width: 18,
+                    //       colorFilter: const ColorFilter.mode(
+                    //         Colors.white,
+                    //         BlendMode.srcATop,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

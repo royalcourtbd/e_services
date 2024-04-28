@@ -26,82 +26,114 @@ class SignUpPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SvgPicture.asset(SvgPath.appLogo),
-              // gapH50,
-              // const ThirdPartyLoginButtons(
-              //     //TODO: SIgn up page and login page should have the same third party login buttons
-              //     ),
-              // gapH30,
-              // const OrSeparatorWidget(),
-              gapH50,
-              Text(
-                'Create a new account',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: twentyFourPx,
-                      fontWeight: FontWeight.w500,
-                    ),
-              ),
-              gapH50,
-              Form(
-                  key: signUpFormKey,
-                  child: Column(
-                    children: [
-                      TextBox(
-                        hintText: 'Enter Email',
-                        textEditingController: Base.authC.emailController,
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: (value) => emailValidation(value!),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SvgPicture.asset(SvgPath.appLogo),
+                // gapH50,
+                // const ThirdPartyLoginButtons(
+                //     //TODO: SIgn up page and login page should have the same third party login buttons
+                //     ),
+                // gapH30,
+                // const OrSeparatorWidget(),
+
+                gapH20,
+                Text(
+                  'Create a new account',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: twentyFourPx,
+                        fontWeight: FontWeight.w500,
                       ),
-                      gapH30,
-                      TextBox(
-                        hintText: 'Password',
-                        textEditingController: Base.authC.passwordController,
-                        obscureText: true,
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: (value) => passwordValidation(value!),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          // Radio button 1
-                          Row(
-                            children: [
-                              Radio(
-                                value: true,
-                                groupValue: Base.authC.isCustomer.value,
-                                onChanged: (value) {
-                                  Base.authC.isCustomer.value = true;
-                                  log(Base.authC.isCustomer.value.toString());
-                                },
-                              ),
-                              const Text('Customer'),
-                            ],
-                          ),
-                          // Radio button 2
-                          Row(
-                            children: [
-                              Radio(
-                                value: false,
-                                groupValue: Base.authC.isCustomer.value,
-                                onChanged: (value) {
-                                  Base.authC.isCustomer.value = false;
-                                  log(Base.authC.isCustomer.value.toString());
-                                },
-                              ),
-                              const Text('Seller'),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SubmitButton(
-                        buttonTitle: 'Sign Up',
-                        onPressed: () => signInButton(),
-                      ),
-                    ],
-                  ))
-            ],
+                ),
+
+                CircleAvatar(
+                    radius: 80,
+                    backgroundColor: Colors.grey[300],
+                    backgroundImage: Base.authC.image.value != null
+                        ? FileImage(Base.authC.image.value!)
+                        : null,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await Base.authC.pickImage();
+                      },
+                      child: Base.authC.image.value != null
+                          ? Icon(
+                              Icons.camera_alt,
+                              size: 40,
+                              color: Colors.grey[600],
+                            )
+                          : Icon(
+                              Icons.camera_alt,
+                              size: 40,
+                              color: Colors.grey[600],
+                            ),
+                    )),
+                gapH10,
+                Form(
+                    key: signUpFormKey,
+                    child: Column(
+                      children: [
+                        TextBox(
+                          hintText: 'Full Name',
+                          textEditingController: Base.authC.fullName,
+                          keyboardType: TextInputType.visiblePassword,
+                        ),
+                        gapH30,
+                        TextBox(
+                          hintText: 'Enter Email',
+                          textEditingController: Base.authC.emailController,
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) => emailValidation(value!),
+                        ),
+                        gapH30,
+                        TextBox(
+                          hintText: 'Password',
+                          textEditingController: Base.authC.passwordController,
+                          obscureText: true,
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) => passwordValidation(value!),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            // Radio button 1
+                            Row(
+                              children: [
+                                Radio(
+                                  value: true,
+                                  groupValue: Base.authC.isCustomer.value,
+                                  onChanged: (value) {
+                                    Base.authC.isCustomer.value = true;
+                                    log(Base.authC.isCustomer.value.toString());
+                                  },
+                                ),
+                                const Text('Customer'),
+                              ],
+                            ),
+                            // Radio button 2
+                            Row(
+                              children: [
+                                Radio(
+                                  value: false,
+                                  groupValue: Base.authC.isCustomer.value,
+                                  onChanged: (value) {
+                                    Base.authC.isCustomer.value = false;
+                                    log(Base.authC.isCustomer.value.toString());
+                                  },
+                                ),
+                                const Text('Seller'),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SubmitButton(
+                          buttonTitle: 'Sign Up',
+                          onPressed: () => signInButton(),
+                        ),
+                      ],
+                    ))
+              ],
+            ),
           ),
         ),
       ),

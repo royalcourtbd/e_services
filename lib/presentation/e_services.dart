@@ -31,7 +31,9 @@ class EServices extends StatelessWidget {
         title: 'E-Services',
         home: GetStorage().hasData("isLogin")
             ? GetStorage().read("isLogin")
-                ? MainPage()
+                ? GetStorage().read("isCustomer") == false
+                    ? MainPage()
+                    : MainPage()
                 : LoginPage()
             : LoginPage());
   }
