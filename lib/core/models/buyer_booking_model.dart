@@ -1,4 +1,4 @@
-class MyBookingModel {
+class BuyerBookingModel {
   final String serviceName;
   final String dateAndTime;
   final String employeeName;
@@ -6,7 +6,7 @@ class MyBookingModel {
   final String status;
   final String image;
 
-  MyBookingModel({
+  BuyerBookingModel({
     required this.serviceName,
     required this.dateAndTime,
     required this.employeeName,

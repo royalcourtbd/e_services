@@ -5,8 +5,8 @@ import 'package:e_services/core/static/ui_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+class BuyerSearchPage extends StatelessWidget {
+  const BuyerSearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {

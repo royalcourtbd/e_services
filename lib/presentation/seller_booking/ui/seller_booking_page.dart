@@ -2,12 +2,12 @@ import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/config/service_screen.dart';
 import 'package:e_services/core/static/svg_path.dart';
 import 'package:e_services/core/static/ui_const.dart';
-import 'package:e_services/presentation/my_booking/model/my_booking_model.dart';
+import 'package:e_services/presentation/seller_booking/model/seller_booking_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class BookingListPage extends StatelessWidget {
-  const BookingListPage({super.key});
+class SellerBookingPage extends StatelessWidget {
+  const SellerBookingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -213,8 +213,8 @@ class BookingListPage extends StatelessWidget {
   }
 }
 
-List<MyBookingModel> _myBookingList = [
-  MyBookingModel(
+List<SellerBookingModel> _myBookingList = [
+  SellerBookingModel(
       serviceName: 'Cleaner',
       dateAndTime: '15 January 2024',
       employeeName: 'Shehnaz dey',
@@ -223,7 +223,7 @@ List<MyBookingModel> _myBookingList = [
       status: 'Complete',
       image: SvgPath.img1,
       color: ServiceAppColor.completeBoxColor),
-  MyBookingModel(
+  SellerBookingModel(
       serviceName: 'Carpenter',
       dateAndTime: '15 January 2024',
       employeeName: 'James William',
@@ -232,7 +232,7 @@ List<MyBookingModel> _myBookingList = [
       status: 'Cancel',
       image: SvgPath.img2,
       color: ServiceAppColor.cancelBoxColor),
-  MyBookingModel(
+  SellerBookingModel(
       serviceName: 'Washing',
       dateAndTime: '15 January 2024',
       employeeName: 'Shehnaz dey',
@@ -241,7 +241,7 @@ List<MyBookingModel> _myBookingList = [
       status: 'Complete',
       image: SvgPath.img3,
       color: ServiceAppColor.completeBoxColor),
-  MyBookingModel(
+  SellerBookingModel(
       serviceName: 'Cleaner',
       dateAndTime: '15 January 2024',
       employeeName: 'Shehnaz dey',
@@ -250,7 +250,7 @@ List<MyBookingModel> _myBookingList = [
       status: 'Complete',
       image: SvgPath.img1,
       color: ServiceAppColor.completeBoxColor),
-  MyBookingModel(
+  SellerBookingModel(
     serviceName: 'Carpenter',
     dateAndTime: '15 January 2024',
     employeeName: 'James William',

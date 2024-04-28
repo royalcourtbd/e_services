@@ -1,10 +1,11 @@
 import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/static/svg_path.dart';
-import 'package:e_services/presentation/booking/ui/booking_list_page.dart';
+
 import 'package:e_services/presentation/dashboard/ui/dashboard_screen.dart';
 import 'package:e_services/presentation/main/presenter/main_presenter.dart';
 import 'package:e_services/presentation/message/ui/message_page.dart';
-import 'package:e_services/presentation/seller_prfile/ui/seller_profile.dart';
+import 'package:e_services/presentation/seller_booking/ui/seller_booking_page.dart';
+import 'package:e_services/presentation/seller_profile/ui/seller_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -86,11 +87,11 @@ class MainPage extends StatelessWidget {
       case 1:
         return const MassagePage();
       case 2:
-        return const BookingListPage();
+        return const SellerBookingPage();
       case 3:
         return const SellerProfilePage();
       default:
-        return const BookingListPage();
+        return const SellerBookingPage();
     }
   }
 }

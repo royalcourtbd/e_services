@@ -5,10 +5,10 @@ import 'package:e_services/core/static/ui_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/models/my_booking_model.dart';
+import '../../../core/models/buyer_booking_model.dart';
 
-class MyBookingPage extends StatelessWidget {
-  const MyBookingPage({super.key});
+class BuyerBookingPage extends StatelessWidget {
+  const BuyerBookingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class MyBookingPage extends StatelessWidget {
         actions: [SvgPicture.asset(SvgPath.icNotification), gapW20],
       ),
       body: ListView.builder(
-        itemCount: _myBookingList.length,
+        itemCount: _buyerBookingList.length,
         shrinkWrap: true,
         padding: padding20,
         itemBuilder: (context, index) {
@@ -65,7 +65,7 @@ class MyBookingPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: radius12,
                           child: Image.asset(
-                            _myBookingList[index].image,
+                            _buyerBookingList[index].image,
                             fit: BoxFit.cover,
                             width: 80,
                             height: 80,
@@ -78,7 +78,7 @@ class MyBookingPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '€${_myBookingList[index].price}',
+                            '€${_buyerBookingList[index].price}',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -90,7 +90,7 @@ class MyBookingPage extends StatelessWidget {
                           ),
                           gapH6,
                           Text(
-                            _myBookingList[index].serviceName,
+                            _buyerBookingList[index].serviceName,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -106,7 +106,7 @@ class MyBookingPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                _myBookingList[index].employeeName,
+                                _buyerBookingList[index].employeeName,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -124,22 +124,23 @@ class MyBookingPage extends StatelessWidget {
                                     horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
                                   borderRadius: radius8,
-                                  color:
-                                      _myBookingList[index].status == 'Cancel'
-                                          ? ServiceAppColor.cancelBoxColor
-                                              .withOpacity(0.1)
-                                          : ServiceAppColor.completeBoxColor
-                                              .withOpacity(0.1),
+                                  color: _buyerBookingList[index].status ==
+                                          'Cancel'
+                                      ? ServiceAppColor.cancelBoxColor
+                                          .withOpacity(0.1)
+                                      : ServiceAppColor.completeBoxColor
+                                          .withOpacity(0.1),
                                 ),
                                 child: Text(
-                                  _myBookingList[index].status,
+                                  _buyerBookingList[index].status,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
                                         fontSize: fourteenPx,
                                         fontWeight: FontWeight.w400,
-                                        color: _myBookingList[index].status ==
+                                        color: _buyerBookingList[index]
+                                                    .status ==
                                                 'Cancel'
                                             ? ServiceAppColor.cancelBoxColor
                                             : ServiceAppColor.completeBoxColor,
@@ -154,7 +155,7 @@ class MyBookingPage extends StatelessWidget {
                   ),
                   gapH15,
                   Text(
-                    _myBookingList[index].dateAndTime,
+                    _buyerBookingList[index].dateAndTime,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: fourteenPx,
                           fontWeight: FontWeight.w500,
@@ -171,8 +172,8 @@ class MyBookingPage extends StatelessWidget {
   }
 }
 
-List<MyBookingModel> _myBookingList = [
-  MyBookingModel(
+List<BuyerBookingModel> _buyerBookingList = [
+  BuyerBookingModel(
     serviceName: 'Cleaner',
     dateAndTime: '15 January 2024',
     employeeName: 'Shehnaz dey',
@@ -180,7 +181,7 @@ List<MyBookingModel> _myBookingList = [
     status: 'Complete',
     image: SvgPath.img1,
   ),
-  MyBookingModel(
+  BuyerBookingModel(
     serviceName: 'Carpenter',
     dateAndTime: '15 January 2024',
     employeeName: 'James William',
@@ -188,7 +189,7 @@ List<MyBookingModel> _myBookingList = [
     status: 'Cancel',
     image: SvgPath.img2,
   ),
-  MyBookingModel(
+  BuyerBookingModel(
     serviceName: 'Washing',
     dateAndTime: '15 January 2024',
     employeeName: 'Shehnaz dey',
@@ -196,7 +197,7 @@ List<MyBookingModel> _myBookingList = [
     status: 'Complete',
     image: SvgPath.img3,
   ),
-  MyBookingModel(
+  BuyerBookingModel(
     serviceName: 'Cleaner',
     dateAndTime: '15 January 2024',
     employeeName: 'Shehnaz dey',
