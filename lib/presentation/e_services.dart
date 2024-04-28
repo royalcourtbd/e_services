@@ -28,8 +28,8 @@ class EServices extends StatelessWidget {
         ),
       ),
       title: 'E-Services',
-      home: BuyerHomePage(),
-      // home: GetStorage().hasData("isLogin") ? MainPage() : LoginPage(),
+      // home: BuyerHomePage(),
+      home: GetStorage().hasData("isLogin") ? MainPage() : LoginPage(),
     );
   }
 }
