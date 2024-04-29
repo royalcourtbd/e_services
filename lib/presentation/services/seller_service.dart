@@ -1,10 +1,6 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:uuid/uuid.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services/presentation/main/ui/main_page.dart';
@@ -16,7 +12,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../core/models/my_service_model.dart';
-import '../../core/models/profile_model.dart';
 import '../service_page/ui/service_page.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -45,17 +40,6 @@ class SellerService extends GetxController {
     await getCurrentLatLng();
 
     super.onInit();
-  }
-
-  getProfile() async {
-    final dir = await getApplicationDocumentsDirectory();
-    final isar = await Isar.open(
-      [ProfileModelSchema],
-      directory: dir.path,
-    );
-
-    final existingEmail = isar.profileModels.name;
-    log(existingEmail);
   }
 
   updateMarkerPosition(LatLng tappedPoint) {
@@ -151,6 +135,7 @@ class SellerService extends GetxController {
       await firestore.collection('service').add({
         "id": '1',
         "service_name": serviceName.value,
+        'cat': selectedCategory.value,
         "price": servicePrice.value,
         "lat": selectedLatLng.value!.latitude,
         "lng": selectedLatLng.value!.longitude,
@@ -324,4 +309,5 @@ class SellerService extends GetxController {
       Get.offAll(() => const ServicePage());
     }
   }
+
 }

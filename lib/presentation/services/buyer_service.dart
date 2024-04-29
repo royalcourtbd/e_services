@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:e_services/presentation/buyer_booking/ui/buyer_booking_page.dart';
+import 'package:e_services/presentation/buyer_home/home_page_2.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -35,8 +38,11 @@ class BuyerService extends GetxController {
   final unit = RxBool(false);
   final servicePrice = RxString('');
   final image = Rx<File?>(null);
+  final selectedDate = Rx<DateTime?>(DateTime.now());
   final categoryList = RxList<String>();
   final allServiceList = RxList<MyServiceModel?>([]);
+  final myBookingList = RxList<MyServiceModel?>([]);
+  final catServiceList = RxList<MyServiceModel?>([]);
   final currentLatLng = Rx<LatLng?>(null);
   final selectedLatLng = Rx<LatLng?>(LatLng(0, 0));
   @override
@@ -66,6 +72,51 @@ class BuyerService extends GetxController {
     selectedLatLng(latLng);
   }
 
+  bookService(MyServiceModel services) async {
+    try {
+      Get.dialog(
+        Dialog(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ),
+      );
+      final firestore = FirebaseFirestore.instance;
+
+      final emailAddrss = GetStorage().read('email');
+      await firestore.collection('book').add({
+        'userMail': emailAddrss,
+        "id": services.id,
+        "service_name": services.serviceName,
+        'cat': services.cat,
+        "price": services.price,
+        "lat": services.lat,
+        "lng": services.lng,
+        "description": services.description,
+        "email": services.email,
+        'image': services.image,
+        'date': DateFormat("yyyy-MM-dd").format(selectedDate.value!)
+      }).then((value) async {});
+      Get.back();
+      Get.snackbar("Book Service", "Service Booked Successfully");
+      Get.offAll(() => const BuyerBookingPage());
+    } catch (e, s) {
+      Get.back();
+      log(e.toString());
+      log(s.toString());
+    }
+  }
+
   Future<String> uploadImage(String emailAddrss, String id) async {
     String link = '';
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
@@ -84,6 +135,56 @@ class BuyerService extends GetxController {
           .update({"id": id, 'image': link});
     });
     return link;
+  }
+
+  getServiceByCategory(String catName) async {
+    try {
+      Get.dialog(
+        Dialog(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ),
+      );
+      catServiceList.clear();
+      FirebaseFirestore.instance
+          .collection('service')
+          .where('cat', isEqualTo: catName)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        if (querySnapshot.docs.isNotEmpty) {
+          // Assuming only one document matches the email, you can access it using querySnapshot.docs[0]
+          List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
+
+          for (var element in documentSnapshot) {
+            Map<String, dynamic> userData =
+                element.data() as Map<String, dynamic>;
+            final raw = MyServiceModel.fromJson(userData);
+            raw.id = querySnapshot
+                .docs[documentSnapshot.indexOf(element)].reference.id;
+
+            catServiceList.add(raw);
+          }
+        }
+      });
+      Get.back();
+    } catch (e) {
+      print(e);
+    } finally {
+      Get.to(() => BuyerHomePage2(
+            isList: true,
+          ));
+    }
   }
 
   getCurrentLatLng() async {
@@ -173,8 +274,6 @@ class BuyerService extends GetxController {
 
   getAllServices() async {
     try {
-
-
       FirebaseFirestore.instance
           .collection('service')
           .get()
@@ -197,6 +296,57 @@ class BuyerService extends GetxController {
       });
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  getMyBookingServices() async {
+    try {
+      Get.dialog(
+        Dialog(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ),
+      );
+
+      final emailAddrss = GetStorage().read('email');
+      myBookingList.clear();
+      FirebaseFirestore.instance
+          .collection('book')
+          .where('userMail', isEqualTo: emailAddrss)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        if (querySnapshot.docs.isNotEmpty) {
+          // Assuming only one document matches the email, you can access it using querySnapshot.docs[0]
+          List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
+
+          for (var element in documentSnapshot) {
+            Map<String, dynamic> userData =
+                element.data() as Map<String, dynamic>;
+            final raw = MyServiceModel.fromJson(userData);
+            raw.id = querySnapshot
+                .docs[documentSnapshot.indexOf(element)].reference.id;
+
+            myBookingList.add(raw);
+          }
+        }
+      });
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      Get.back();
+
+      Get.offAll(() => const BuyerBookingPage());
     }
   }
 }

@@ -4,22 +4,32 @@ import 'package:e_services/core/static/ui_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/bindings/base.dart';
+
 class BuyerProfilePage extends StatelessWidget {
   const BuyerProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Base.authC.getProfile();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              SvgPath.imgProfilePic,
-              width: sixtyPx,
-              height: sixtyPx,
-            ),
+            Base.authC.profileModel.value!.imageLink != ''
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      Base.authC.profileModel.value!.imageLink!,
+                    ),
+                    radius: 30,
+                  )
+                : Image.asset(
+                    SvgPath.imgProfilePic,
+                    width: sixtyPx,
+                    height: sixtyPx,
+                  ),
             SvgPicture.asset(SvgPath.icCross)
           ],
         ),
@@ -31,7 +41,7 @@ class BuyerProfilePage extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Ashfak Sayem',
+                Base.authC.profileModel.value!.fullname!,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: twentyFourPx,
                       fontWeight: FontWeight.w500,
@@ -42,7 +52,9 @@ class BuyerProfilePage extends StatelessWidget {
             ProfileWidgetRow(
               iconPath: SvgPath.icBookList,
               title: 'Booking List',
-              onTap: () {},
+              onTap: () async {
+                await Base.buyerC.getMyBookingServices();
+              },
             ),
             gapH30,
             ProfileWidgetRow(
@@ -60,7 +72,9 @@ class BuyerProfilePage extends StatelessWidget {
             ProfileWidgetRow(
               iconPath: SvgPath.icLogout,
               title: 'Log out',
-              onTap: () {},
+              onTap: () async {
+                Base.authC.signOut();
+              },
             ),
             gapH30,
           ],

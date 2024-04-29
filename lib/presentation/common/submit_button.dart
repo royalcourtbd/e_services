@@ -8,10 +8,14 @@ class SubmitButton extends StatelessWidget {
     super.key,
     required this.buttonTitle,
     this.onPressed,
+    this.image,
+    this.fontSize,
   });
 
   final String buttonTitle;
   final VoidCallback? onPressed;
+  final Widget? image;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +39,23 @@ class SubmitButton extends StatelessWidget {
             ],
           ),
         ),
-        child: Text(
-          buttonTitle,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.white,
-                fontSize: twentyPx,
-                fontWeight: FontWeight.w500,
-              ),
-          textAlign: TextAlign.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              buttonTitle,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.white,
+                    fontSize: fontSize ?? twentyPx,
+                    fontWeight: FontWeight.w500,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            if (image != null) ...[
+              gapW10,
+              image!,
+            ]
+          ],
         ),
       ),
     );
