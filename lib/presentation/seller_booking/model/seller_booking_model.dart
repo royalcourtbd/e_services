@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyBookingModel {
+class SellerBookingModel {
   final String serviceName;
   final String dateAndTime;
   final String employeeName;
@@ -10,7 +10,7 @@ class MyBookingModel {
   final String image;
   final Color color;
 
-  MyBookingModel({
+  SellerBookingModel({
     required this.serviceName,
     required this.dateAndTime,
     required this.employeeName,

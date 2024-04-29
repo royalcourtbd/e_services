@@ -1,9 +1,10 @@
 import 'package:e_services/core/bindings/allbindings.dart';
 import 'package:e_services/core/bindings/base.dart';
 import 'package:e_services/core/static/font_family.dart';
+import 'package:e_services/presentation/buyer_booking/ui/buyer_booking_page.dart';
+import 'package:e_services/presentation/buyer_profile/ui/buyer_profile_page.dart';
 import 'package:e_services/presentation/login/ui/login_page.dart';
 import 'package:e_services/presentation/main/ui/main_page.dart';
-import 'package:e_services/presentation/service_page/ui/manage_service_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -31,9 +32,9 @@ class EServices extends StatelessWidget {
         title: 'E-Services',
         home: GetStorage().hasData("isLogin")
             ? GetStorage().read("isLogin")
-                ? GetStorage().read("isCustomer") == false
+                ? GetStorage().read("isCustomer") != false
                     ? MainPage()
-                    : MainPage()
+                    : BuyerBookingPage()
                 : LoginPage()
             : LoginPage());
   }

@@ -1,16 +1,18 @@
 import 'package:e_services/core/bindings/base.dart';
 import 'package:e_services/core/config/service_app_color.dart';
 import 'package:e_services/core/static/svg_path.dart';
-import 'package:e_services/presentation/booking/ui/booking_list_page.dart';
+
 import 'package:e_services/presentation/dashboard/ui/dashboard_screen.dart';
 import 'package:e_services/presentation/main/presenter/main_presenter.dart';
-import 'package:e_services/presentation/seller_prfile/ui/seller_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
+
+import '../../seller_booking/ui/seller_booking_page.dart';
+import '../../seller_profile/ui/seller_profile.dart';
 
 class MainPage extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
@@ -84,11 +86,11 @@ class MainPage extends StatelessWidget {
         return const DashboardScreen();
 
       case 1:
-        return const BookingListPage();
+        return const SellerBookingPage();
       case 2:
         return const SellerProfilePage();
       default:
-        return const BookingListPage();
+        return const SellerBookingPage();
     }
   }
 }
